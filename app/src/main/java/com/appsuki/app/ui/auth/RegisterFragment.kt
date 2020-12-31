@@ -30,7 +30,6 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-
         observe()
     }
 
@@ -51,8 +50,6 @@ class RegisterFragment : Fragment() {
                 findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
             }
             it.isConsumed = true
-
-
         }
     }
 

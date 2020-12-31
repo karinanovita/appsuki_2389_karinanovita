@@ -17,9 +17,8 @@
     <style name="Theme.Appsuki.Auth" parent="Theme.Appsuki">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/white</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@color/white</item>
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
-
 </resources>

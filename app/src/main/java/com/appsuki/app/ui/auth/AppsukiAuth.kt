@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 
 object AppsukiAuth {
 
-    fun logout(context: Context, callback: ((ActionState<Boolean>) -> Unit)? = null) {
+    fun logout(context: Context, callback: ((ActionState<Boolean>) -> Unit)? =null) {
         val repo = AuthRepository(context)
         CoroutineScope(Dispatchers.IO).launch {
             val resp = repo.logout()
@@ -19,5 +19,4 @@ object AppsukiAuth {
             }
         }
     }
-
 }

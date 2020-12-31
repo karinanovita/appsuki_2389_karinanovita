@@ -5,5 +5,4 @@ data class ActionState<T>(
     val message: String? = null,
     val isSuccess: Boolean = true,
     var isConsumed: Boolean = false
-
 )

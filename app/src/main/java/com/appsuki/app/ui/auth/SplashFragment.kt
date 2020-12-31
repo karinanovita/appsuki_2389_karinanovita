@@ -11,7 +11,6 @@ import com.appsuki.app.data.repository.AuthRepository
 import com.appsuki.app.databinding.FragmentSplashBinding
 import kotlinx.coroutines.*
 
-
 class SplashFragment : Fragment() {
     val parent: AuthActivity by lazy { activity as AuthActivity }
     val viewModel: AuthViewModel by lazy { AuthViewModel(AuthRepository(parent)) }
@@ -21,7 +20,7 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       binding = FragmentSplashBinding.inflate(inflater, container, false)
+        binding = FragmentSplashBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         return binding.root
@@ -37,12 +36,12 @@ class SplashFragment : Fragment() {
             delay(2000)
             withContext(Dispatchers.Main) {
                 if (viewModel.isLogin.value == true) {
-                    viewModel.authUser.value?.let { parent.onSuccess(it) }
-                }else{
+                    parent.onSuccess(viewModel.authUser.value)
+                } else {
                     findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
-                }
-
                 }
             }
         }
     }
+
+}

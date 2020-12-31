@@ -17,20 +17,20 @@ class LoginFragment : Fragment() {
     val viewModel: AuthViewModel by lazy { AuthViewModel(AuthRepository(parent)) }
     lateinit var binding: FragmentLoginBinding
 
-     override fun onCreateView(
+
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-         binding = FragmentLoginBinding.inflate(inflater, container, false)
-         binding.lifecycleOwner = this
-         binding.viewModel = viewModel
-         return binding.root
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-
         observe()
     }
 
@@ -41,18 +41,16 @@ class LoginFragment : Fragment() {
     }
 
     private fun observe() {
-      viewModel.authLogin.observe(viewLifecycleOwner) {
-          if (it.isConsumed) {
-              Log.i("Login", "isConsumed")
-          } else if (!it.isSuccess) {
-              Toast.makeText(parent, it.message, Toast.LENGTH_SHORT).show()
-          } else {
-              Toast.makeText(parent, it.message, Toast.LENGTH_SHORT).show()
-              it.data?.let { it1 -> parent.onSuccess(it1) }
-          }
-          it.isConsumed = true
-
-
-      }
+        viewModel.authLogin.observe(viewLifecycleOwner) {
+            if (it.isConsumed) {
+                Log.i("Login", "isConsumed")
+            } else if (!it.isSuccess) {
+                Toast.makeText(parent, it.message, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(parent, it.message, Toast.LENGTH_SHORT).show()
+                parent.onSuccess(it.data)
+            }
+            it.isConsumed = true
+        }
     }
 }

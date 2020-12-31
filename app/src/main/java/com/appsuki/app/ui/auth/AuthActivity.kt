@@ -15,13 +15,12 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_auth)
+
     }
 
-    fun onSuccess(user: AuthUser) {
-
-        val intent = Intent(this, MainActivity::class.java )
+    fun onSuccess(user: AuthUser?) {
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-
     }
 }
