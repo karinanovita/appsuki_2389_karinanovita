@@ -8,7 +8,7 @@ import com.appsuki.app.data.model.AuthUser
 import com.appsuki.app.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 
-class AuthViewModel(val repo: AuthRepository): ViewModel() {
+class AuthViewModel(val repo: AuthRepository) : ViewModel() {
     val authUser = repo.authUser
     val isLogin = repo.isLogin
     val authLogin = MutableLiveData<ActionState<AuthUser>>()
@@ -17,27 +17,25 @@ class AuthViewModel(val repo: AuthRepository): ViewModel() {
 
     val email = MutableLiveData<String>()
     val password = MutableLiveData<String>()
-    val fullName = MutableLiveData<String>()
+    val fullname = MutableLiveData<String>()
 
     fun login() {
         viewModelScope.launch {
-            val resp = repo.login(email.value ?:"", password.value ?:"")
+            val resp = repo.login(email.value ?: "", password.value ?: "")
             authLogin.value = resp
         }
     }
 
     fun register() {
         viewModelScope.launch {
-            val  resp = repo.register(
+            val resp = repo.register(
                 AuthUser(
-                    email = email.value ?:"",
-                    password = password.value ?:"",
-                    fullName = fullName.value ?:""
+                    email = email.value ?: "",
+                    password = password.value ?: "",
+                    fullName = fullname.value ?: ""
                 )
             )
-
             authRegister.value = resp
-
         }
     }
 

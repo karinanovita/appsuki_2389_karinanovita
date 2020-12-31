@@ -17,24 +17,25 @@ class AuthPref(val context: Context) {
         const val IS_LOGIN = "is_login"
     }
 
-     var authUser: AuthUser?
-        get() = sp.getObject(AUTH_USER)
-        private set(value) = sp.edit().putObject(AUTH_USER, value).apply()
+    var authUser: AuthUser?
+    get() = sp.getObject(AUTH_USER)
+    private set(value) = sp.edit().putObject(AUTH_USER, value).apply()
 
-     var isLogin: Boolean
-        get() = sp.getBoolean(IS_LOGIN, false)
-        private set(value) = sp.edit().putBoolean(IS_LOGIN, value).apply()
+    var isLogin: Boolean
+    get() = sp.getBoolean(IS_LOGIN, false)
+    private set(value) = sp.edit().putBoolean(IS_LOGIN, value).apply()
 
     suspend fun login(email: String, password: String): ActionState<AuthUser> {
         val user = authUser
-        if (user == null) {
-            return ActionState(message = "Anda belum terdaftar", isSuccess = false)
+        return if (user == null) {
+            ActionState(message = "Anda belum terdaftar", isSuccess = false)
         } else if (email.isBlank() || password.isBlank()) {
-            return ActionState(message = "Email dan password tidak boleh kosong", isSuccess = false)
+            ActionState(message = "Email dan password tidak boleh kosong", isSuccess = false)
         } else if (user.email == email && user.password == password) {
-            return ActionState(authUser, message = "Anda berhasil login")
+            isLogin = true
+            ActionState(authUser, message = "Anda berhasil login")
         } else {
-            return ActionState(message = "Email atau password salah", isSuccess = false)
+            ActionState(message = "Email atau password salah", isSuccess = false)
         }
     }
 
@@ -52,3 +53,5 @@ class AuthPref(val context: Context) {
         return ActionState(true, message = "Anda berhasil logout")
     }
 }
+
+
